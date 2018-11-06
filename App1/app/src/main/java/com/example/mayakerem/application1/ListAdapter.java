@@ -7,39 +7,36 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ListAdapter extends RecyclerView.Adapter {
-    private String[] itemData;
+    private String[] mDataSet;
 
     public ListAdapter(String[] data) {
-        itemData = data;
+        mDataSet = data;
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView textData;
-        private ImageView imageData;
+        private TextView mTextView;
 
-        public MyViewHolder(TextView itemViewLayout, ImageView imageViewLayout) {
-            super(itemViewLayout);
-            textData = itemViewLayout;
-            imageData = imageViewLayout;
+        public MyViewHolder(TextView view) {
+            super(view);
+            mTextView = view;
         }
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         TextView textView = new TextView(parent.getContext());
-        ImageView imageView = new ImageView(parent.getContext());
-        MyViewHolder holder = new MyViewHolder(textView, imageView);
+        MyViewHolder holder = new MyViewHolder(textView);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        String textForDisplay = itemData[position];
-        ((MyViewHolder)holder).textData.setText(textForDisplay);
+        String textForDisplay = mDataSet[position];
+        ((MyViewHolder)holder).mTextView.setText(textForDisplay);
     }
 
     @Override
     public int getItemCount() {
-        return itemData.length;
+        return mDataSet.length;
     }
 }

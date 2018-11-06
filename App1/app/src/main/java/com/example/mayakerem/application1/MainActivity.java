@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
-    private Button button_Stark;
-    private Button button_Lannister;
+    public Button button_Stark;
+    public Button button_Lannister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
                 openLannisterPage();
             }
         });
+
     }
     public void openStarkPage (){
         Intent intent = new Intent (this, StarkPage.class);

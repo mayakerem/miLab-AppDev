@@ -14,9 +14,8 @@ public class StarkPage extends AppCompatActivity {
 
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recycleview_stark);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new ListAdapter(new String[]{"Eddard Stark", "Title: Lord Regent of " +
-                "the Seven Kingdoms", "Origin: The Vale of Arryn, Winterfell", "Allegiance: House " +
-                "Stark", "Culture: Northmen", "Religion: Old Gods of the Forest", "Parents: Rickard" +
-                " Stark"}));
+        recyclerView.setAdapter(new ListAdapter(new String[]{"Eddard Stark", "Catelyn Stark",
+                "Robb Stark", "Sansa Stark","Arya Stark", "Bran Stark", "Rickon Stark", "Jon " +
+                "Snow"}));
     }
 }
