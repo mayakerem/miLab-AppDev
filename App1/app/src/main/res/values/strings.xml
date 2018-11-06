@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Application 1</string>
+    <string name="choose_a_character">Choose a character</string>
+    <string name="game_of_thrones">Game of Thrones</string>
+    <string name="stark">Stark</string>
+    <string name="by_maya_kerem">by Maya Kerem</string>
+    <string name="lannister">Lannister</string>
+</resources>
