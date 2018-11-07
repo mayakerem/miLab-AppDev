@@ -8,4 +8,7 @@
     <string name="choose_a_family">Choose a family:</string>
     <string name="textview">TextView</string>
     <string name="images_from_got">images_from_got</string>
+    <string name="choose_a_family2">CHOOSE A FAMILY</string>
+    <string name="todo">TODO</string>
+    <string name="title_headline">TITLE HEADLINE</string>
 </resources>
