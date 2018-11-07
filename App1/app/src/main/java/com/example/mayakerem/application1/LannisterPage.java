@@ -21,7 +21,20 @@ public class LannisterPage extends AppCompatActivity {
                 "Dorna Lannister R.I.P", "Cersei Lannister", "Jaimie Lannister", "Tyrion Lannister",
                 "Lancel Lannister R.I.P", "Willem Lannister R.I.P", "Martyn Lannister R.I.P",
                 "Joffrey Baratheon R.I.P", "Myrcella Bartheon R.I.P", "Tommen Baratheon"},
-                new Drawable[]{ContextCompat.getDrawable(this,R.drawable.lannister),
-                        ContextCompat.getDrawable(this,R.drawable.lannister)}));
+                new Drawable[]{ContextCompat.getDrawable(this,R.drawable.unknownlannister),
+                        ContextCompat.getDrawable(this,R.drawable.tywinlannister),
+                        ContextCompat.getDrawable(this,R.drawable.unknownlannister),
+                        ContextCompat.getDrawable(this,R.drawable.unknownlannister),
+                        ContextCompat.getDrawable(this,R.drawable.unknownlannister),
+                        ContextCompat.getDrawable(this,R.drawable.cerseilannister),
+                        ContextCompat.getDrawable(this,R.drawable.jaimelannister),
+                        ContextCompat.getDrawable(this,R.drawable.tyrionlannister),
+                        ContextCompat.getDrawable(this,R.drawable.unknownlannister),
+                        ContextCompat.getDrawable(this,R.drawable.unknownlannister),
+                        ContextCompat.getDrawable(this,R.drawable.unknownlannister),
+                        ContextCompat.getDrawable(this,R.drawable.joffreybaratheon),
+                        ContextCompat.getDrawable(this,R.drawable.myrcellabaratheon),
+                        ContextCompat.getDrawable(this,R.drawable.tommenbaratheon),
+        }));
     }
 }
