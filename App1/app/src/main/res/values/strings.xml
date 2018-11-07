@@ -5,4 +5,7 @@
     <string name="stark">Stark</string>
     <string name="by_maya_kerem">by Maya Kerem</string>
     <string name="lannister">Lannister</string>
+    <string name="choose_a_family">Choose a family:</string>
+    <string name="textview">TextView</string>
+    <string name="images_from_got">images_from_got</string>
 </resources>
