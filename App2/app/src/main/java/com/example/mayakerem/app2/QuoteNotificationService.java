@@ -20,16 +20,38 @@ import java.util.concurrent.TimeUnit;
  * An {@link IntentService} subclass for handling asynchronous task requests in
  * a service on a separate handler thread.
  * <p>
- * TODO: Customize class - update intent actions, extra parameters and static
  * helper methods.
  */
 public class QuoteNotificationService extends IntentService {
 
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
     public static final String ACTION_QUOTE_NOTIFICATION = "com.example.mayakerem.app2.action.ACTION_QUOTE_NOTIFICATION";
-    public static final String[] quotesArray = {"quote1", "qoute2", "quote3", "quote4", "quote5", "quote6"};
+    public static final String[] quotesArray =
+            {"When you're alone, and life is making you lonely",
+                    "You can always go Downtown",
+                    "When you've got worries, all the noise and the hurry",
+                    "Seems to help, I know Downtown",
+                    "Just listen to the music of the traffic in the city",
+                    "Linger on the sidewalk where the neon signs are pretty",
+                    "How can you lose?",
+                    "You can forget all your troubles, forget all your cares",
+                    "So go downtown, things'll be great when you're",
+                    "Downtown, no finer place for sure",
+                    "Downtown everything's waiting for you",
+                    "Don't hang around and let your problems surround you",
+                    "There are movie shows Downtown",
+                    "Maybe you know some little places to go to",
+                    "Where they never close Downtown",
+                    "Just listen to the rhythm of a gentle bossa nova",
+                    "You'll be dancing with him too before the night is over, Happy again",
+                    "The lights are much brighter there",
+                    "You can forget all your troubles, forget all your cares",
+                    "So go downtown, where all the lights are bright\n"};
     public static AlarmManager alarmManager;
-    public static final long TEN_SECONDS_IN_MILLISECONDS = 1000*10;
+    public static final long SECONDS = 1000 * 15;
+    public static NotificationManagerCompat notificationManager;
+    public static int id = 1;
+
 
     public QuoteNotificationService() {
         super("QuoteNotificationService");
@@ -42,13 +64,16 @@ public class QuoteNotificationService extends IntentService {
      *
      * @see IntentService
      */
-    // TODO: Customize helper method
     public static void doAction(Context context) {
         //Initializing Action
         Intent intent = new Intent(context, QuoteNotificationService.class);
         intent.setAction(ACTION_QUOTE_NOTIFICATION);
         context.startService(intent);
     }
+
+//    public static void stopAction(Context context) {
+//        notificationManager.cancelAll();
+//    }
 
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -63,32 +88,23 @@ public class QuoteNotificationService extends IntentService {
     }
 
     private void handleAction() {
-        //connecting the intent to the brodcast reciever
+        //connecting the intent to the broadcast receiver
         Intent intent = new Intent(this, NotificationReceiver.class);
         alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                SystemClock.elapsedRealtime(), TEN_SECONDS_IN_MILLISECONDS,
+                SystemClock.elapsedRealtime(), SECONDS,
                 PendingIntent.getBroadcast(this, 0, intent, 0));
 
         String quote = quotesArray[(int) (Math.random() * quotesArray.length)];
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Random Quotes")
-                .setContentText(quote).setAutoCancel(true)
-                .setPriority(1)
-                .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        int id = 1;
+                .setContentTitle(id + ": " +quote)
+               // .setContentText(id+ ": " + quote)
+                .setAutoCancel(false)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+//                .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
+                ;
+        notificationManager = NotificationManagerCompat.from(this);
         notificationManager.notify(id ++, builder.build());
     }
-
-//    // For API 26 and higher need to follow by channels
-//    private void registerNotificationChannel() {
-////        Log.i(ACTION_NOTIFY, "notification channel for API higher than 26");
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            NotificationManager nm = (NotificationManager) getSystemService(NotificationManager.class);
-//            nm.createNotificationChannel(new NotificationChannel(CHANNEL_ID, CHANNEL_ID, NotificationManager.IMPORTANCE_HIGH));
-//        }
-//    }
 }

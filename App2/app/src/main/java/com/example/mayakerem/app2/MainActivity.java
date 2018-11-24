@@ -21,22 +21,18 @@ public class MainActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(MainActivity.this, QuoteNotificationService.class);
-//                startService(intent);
-//                QuoteNotificationService.doAction(notification);
                 QuoteNotificationService.doAction(MainActivity.this);
 
             }
         });
 
-        Button endButton = (Button)findViewById(R.id.end_button);
-        endButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = new Intent(MainActivity.this, QuoteNotificationService.class);
-//                stopService(intent);
-            }
-        });
+//        Button endButton = (Button)findViewById(R.id.end_button);
+//        endButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                QuoteNotificationService.stopAction(MainActivity.this);
+//            }
+//        });
     }
 }
 

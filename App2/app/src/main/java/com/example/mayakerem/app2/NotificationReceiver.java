@@ -13,6 +13,6 @@ public class NotificationReceiver extends BroadcastReceiver {
         //Broadcast reciever needs to hold the intent from the intent service and is
         //later passe on to the main activity in the XML
         QuoteNotificationService.doAction(context);
-//    throw new UnsupportedOperationException("Not yet implemented");
+        //throw new UnsupportedOperationException("Not yet implemented");
     }
 }
