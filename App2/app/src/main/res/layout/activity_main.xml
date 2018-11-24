@@ -13,7 +13,7 @@
         android:layout_height="121dp"
         android:layout_marginTop="88dp"
         android:fontFamily="sans-serif-smallcaps"
-        android:text="click_on_the_button_to_start_getting_quotes"
+        android:text="@string/assignment_2"
         android:textAlignment="center"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -23,17 +23,31 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/start_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="96dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="158dp"
-        android:text="start_quotes"
+        android:text="@string/start_quotes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <Button
+        android:id="@+id/end_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/end_quotes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_button" />
 
 </android.support.constraint.ConstraintLayout>

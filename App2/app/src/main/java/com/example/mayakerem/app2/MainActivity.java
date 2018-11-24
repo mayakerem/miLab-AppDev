@@ -3,6 +3,7 @@ package com.example.mayakerem.app2;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.drm.DrmStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,20 +16,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button notifyButton = (Button)findViewById(R.id.button);
+        Button startButton = (Button)findViewById(R.id.start_button);
         final QuoteNotificationService notification = new QuoteNotificationService();
-        notifyButton.setOnClickListener(new View.OnClickListener() {
+        startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 0, intent, 0);
-//               TODO: Ask Daniel, How you connect the Intent Service to an on button event.
+//                Intent intent = new Intent(MainActivity.this, QuoteNotificationService.class);
+//                startService(intent);
+//                QuoteNotificationService.doAction(notification);
+                QuoteNotificationService.doAction(MainActivity.this);
 
             }
         });
+
+        Button endButton = (Button)findViewById(R.id.end_button);
+        endButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this, QuoteNotificationService.class);
+//                stopService(intent);
+            }
+        });
     }
-
-
 }
 

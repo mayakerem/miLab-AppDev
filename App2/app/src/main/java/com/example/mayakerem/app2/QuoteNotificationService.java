@@ -2,13 +2,17 @@ package com.example.mayakerem.app2;
 
 import android.app.AlarmManager;
 import android.app.IntentService;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.Context;
+import android.os.Build;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
+import android.util.Log;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,9 +26,10 @@ import java.util.concurrent.TimeUnit;
 public class QuoteNotificationService extends IntentService {
 
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
-    private static final String ACTION_QUOTE_NOTIFICATION = "com.example.mayakerem.app2.action.ACTION_QUOTE_NOTIFICATION";
-    private final String[] quotesArray = {"quote1", "qoute2", "quote3", "quote4"};
+    public static final String ACTION_QUOTE_NOTIFICATION = "com.example.mayakerem.app2.action.ACTION_QUOTE_NOTIFICATION";
+    public static final String[] quotesArray = {"quote1", "qoute2", "quote3", "quote4", "quote5", "quote6"};
     public static AlarmManager alarmManager;
+    public static final long TEN_SECONDS_IN_MILLISECONDS = 1000*10;
 
     public QuoteNotificationService() {
         super("QuoteNotificationService");
@@ -38,27 +43,52 @@ public class QuoteNotificationService extends IntentService {
      * @see IntentService
      */
     // TODO: Customize helper method
-    public static void doAction (Context context, String quote) {
-        //Action
+    public static void doAction(Context context) {
+        //Initializing Action
         Intent intent = new Intent(context, QuoteNotificationService.class);
         intent.setAction(ACTION_QUOTE_NOTIFICATION);
         context.startService(intent);
-        //Alarm
-        alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                SystemClock.elapsedRealtime(), TimeUnit.SECONDS.toMinutes(3), PendingIntent.getService(context,0, intent, -1));
-
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        String quote = quotesArray[(int) (Math.random()*quotesArray.length)];
+        if (intent != null) {
+            final String action = intent.getAction();
+            if (ACTION_QUOTE_NOTIFICATION.equals(action)) {
+                handleAction();
+            } else {
+                throw new RuntimeException("Unknown action provided");
+            }
+        }
+    }
+
+    private void handleAction() {
+        //connecting the intent to the brodcast reciever
+        Intent intent = new Intent(this, NotificationReceiver.class);
+        alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime(), TEN_SECONDS_IN_MILLISECONDS,
+                PendingIntent.getBroadcast(this, 0, intent, 0));
+
+        String quote = quotesArray[(int) (Math.random() * quotesArray.length)];
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentText(quote);
+                .setContentTitle("Random Quotes")
+                .setContentText(quote).setAutoCancel(true)
+                .setPriority(1)
+                .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
 
-        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         int id = 1;
-        notificationManager.notify(id, builder.build());
+        notificationManager.notify(id ++, builder.build());
     }
+
+//    // For API 26 and higher need to follow by channels
+//    private void registerNotificationChannel() {
+////        Log.i(ACTION_NOTIFY, "notification channel for API higher than 26");
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            NotificationManager nm = (NotificationManager) getSystemService(NotificationManager.class);
+//            nm.createNotificationChannel(new NotificationChannel(CHANNEL_ID, CHANNEL_ID, NotificationManager.IMPORTANCE_HIGH));
+//        }
+//    }
 }

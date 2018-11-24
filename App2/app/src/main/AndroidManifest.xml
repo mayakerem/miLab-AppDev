@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:enabled="true" android:name=".NotificationReceiver"/>
+        <service android:name=".QuoteNotificationService" android:exported="false"/>
     </application>
+
+<uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
 </manifest>

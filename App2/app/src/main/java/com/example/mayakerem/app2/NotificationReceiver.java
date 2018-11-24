@@ -1,5 +1,6 @@
 package com.example.mayakerem.app2;
 
+import android.app.IntentService;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +10,9 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.i("Notification Reciever", "button to initiate notification was instantiated");
-        throw new UnsupportedOperationException("Not yet implemented");
+        //Broadcast reciever needs to hold the intent from the intent service and is
+        //later passe on to the main activity in the XML
+        QuoteNotificationService.doAction(context);
+//    throw new UnsupportedOperationException("Not yet implemented");
     }
 }
