@@ -9,25 +9,34 @@
 
 //add the relevant packages
 const express = require('express');
-const stream = require('stream');
+//const stream = require('stream');
 const fs = require('fs');
-
 //create the express app
 let app = express();
-
 //decide the port
-const PORT = 8080;
-// get file from server
+const PORT = process.env.PORT || 8080;
+//set up app to the right PORT
+app.set('port',PORT);
 
-app.get('files/:filename', (req,res) => {
-  const filename = req.params.filename;
-  fs.createReadStream('./files/${file}.txt').pipe(fs.createWriteStream(res));
-  //res.set('Content-Type', 'text/html');
-  res.status(200).send(res);
-  return res;
+// get file from server, anything the user puts after /files/
+app.get('/file/:title', (req,res) => {
+  //without txt
+  const title = req.query.title;
+  //check is a file with this title exists withthe txt
+  fs.exists(`/files/${title}.txt`, (exists) => {
+    if (exists) {
+      //pipe (merge) reading it and outputting it to the response
+      const rstream = fs.createReadStream(`/files/${title}.txt`);
+      rstream.pipe(response);
+    } else {
+      //reached an error
+      response.status(404).send('Encountered Error');
+      return;
+    }
+  });
 });
 
 //listining to the URL
 app.listen(PORT, () => {
   console.log(`listening at port ${PORT}`);
-})
+});
