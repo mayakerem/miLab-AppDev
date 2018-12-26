@@ -1,0 +1,22 @@
+{
+  "name": "simplepackage",
+  "version": "1.0.0",
+  "description": "NPM Setup for Excerise 5",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mayakerem/miLab-appdev.git"
+  },
+  "author": "Maya Kerem",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mayakerem/miLab-appdev/issues"
+  },
+  "homepage": "https://github.com/mayakerem/miLab-appdev#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
