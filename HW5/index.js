@@ -19,7 +19,7 @@ const PORT = process.env.PORT || 8080;
 app.set('port',PORT);
 
 // get file from server, anything the user puts after /files/
-app.get('/file/:title', (req,res) => {
+app.get('/files/:title', (req,res) => {
   //without txt
   const title = req.query.title;
   //check is a file with this title exists withthe txt
