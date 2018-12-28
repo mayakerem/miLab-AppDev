@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/mayakerem/miLab-appdev#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "play": "^0.5.0"
   }
 }
