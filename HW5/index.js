@@ -1,8 +1,8 @@
 // Create a simple server using express (DONE)
-// that returns static files (hard coded text files or images you provide).
-// The server should use the stream api pipe() to output the data.
-// Hint: res is actually a stream!
-// The server should serve the files using a custom URL.
+// that returns static files (hard coded text files or images you provide). (DONE)
+// The server should use the stream api pipe() to output the data. (DONE)
+// Hint: res is actually a stream! (DONE)
+// The server should serve the files using a custom URL. (DONE)
 // Example - http://server/files/file-name
 // Tag it as EXERCISE_05
 
@@ -19,6 +19,16 @@ const PORT = process.env.PORT || 8080;
 //set up app to the right PORT
 app.set('port',PORT);
 
+//introduction to programm
+app.get('/', (req,res) => {
+  //title
+  const headline = "<h1> Exercise 5 </h1>";
+  //instructions
+  const content = "<h2> This program will play a sample of the top songs from the year 2000. Please choose the songs by inputting /files/: eyeofthetiger, byebye, itsmylife, beautifulday. TURN UP YOUR SPEAKERS</h2>"
+  res.set('Content-Type', 'text/html');
+  res.status(200).send(headline+ content);
+});
+
 // get file from server, anything the user puts after /files/
 app.get('/files/:title', (req,res) => {
   //without txt
@@ -26,13 +36,15 @@ app.get('/files/:title', (req,res) => {
   //check is a file with this title exists withthe txt
   fs.exists(`./files/${title}.txt`, (exists) => {
     if (exists) {
-      //pipe (merge) reading it and outputting it to the respons
+      //startplaying song
       play.sound(`./sound/${title}.wav`);
+      //pipe (merge) reading it and outputting it to the respons
       const rstream = fs.createReadStream(`./files/${title}.txt`);
       rstream.pipe(res);
     } else {
       //reached an error
-      res.status(404).send('Encountered Error');
+      const error = "<h3> You have entered a song name not in the list, please choose either: beautifulday, byebyebye, itsmylife, eyeofthetiger. Turn on your speakers! </h3>"
+      res.status(404).send(error);
       return;
     }
   });
