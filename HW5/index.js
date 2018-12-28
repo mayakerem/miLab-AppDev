@@ -21,7 +21,7 @@ app.set('port',PORT);
 // get file from server, anything the user puts after /files/
 app.get('/files/:title', (req,res) => {
   //without txt
-  const title = req.query.title;
+  const title = req.params.title;
   //check is a file with this title exists withthe txt
   fs.exists(`/files/${title}.txt`, (exists) => {
     if (exists) {
