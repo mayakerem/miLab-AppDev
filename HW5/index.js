@@ -11,6 +11,7 @@
 const express = require('express');
 //const stream = require('stream');
 const fs = require('fs');
+var play = require('play');
 //create the express app
 let app = express();
 //decide the port
@@ -25,7 +26,8 @@ app.get('/files/:title', (req,res) => {
   //check is a file with this title exists withthe txt
   fs.exists(`./files/${title}.txt`, (exists) => {
     if (exists) {
-      //pipe (merge) reading it and outputting it to the response
+      //pipe (merge) reading it and outputting it to the respons
+      play.sound(`./sound/${title}.wav`);
       const rstream = fs.createReadStream(`./files/${title}.txt`);
       rstream.pipe(res);
     } else {
