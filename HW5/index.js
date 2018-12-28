@@ -23,14 +23,14 @@ app.get('/files/:title', (req,res) => {
   //without txt
   const title = req.params.title;
   //check is a file with this title exists withthe txt
-  fs.exists(`/files/${title}.txt`, (exists) => {
+  fs.exists(`./files/${title}.txt`, (exists) => {
     if (exists) {
       //pipe (merge) reading it and outputting it to the response
-      const rstream = fs.createReadStream(`/files/${title}.txt`);
-      rstream.pipe(response);
+      const rstream = fs.createReadStream(`./files/${title}.txt`);
+      rstream.pipe(res);
     } else {
       //reached an error
-      response.status(404).send('Encountered Error');
+      res.status(404).send('Encountered Error');
       return;
     }
   });
