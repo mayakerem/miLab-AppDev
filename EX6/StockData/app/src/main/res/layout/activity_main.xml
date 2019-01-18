@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/fetch_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="161dp"
+        android:layout_marginTop="128dp"
+        android:layout_marginEnd="162dp"
+        android:layout_marginBottom="254dp"
+        android:text="@string/button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="98dp"
+        android:layout_marginTop="256dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="128dp"
+        android:contentDescription="@string/stockname"
+        android:ems="10"
+        android:hint="Appropriate Stock Symbol"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:singleLine="true"
+        android:text="@string/Enter Stock Symbol"
+        app:layout_constraintBottom_toTopOf="@+id/fetch_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="MSFT" />
+
+    <Button
+        android:id="@+id/StopReceiving"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="139dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="139dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/stop_receiving"
+        android:text="Stop Receiving"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fetch_btn"
+        tools:text="Stop Receiving" />
+</android.support.constraint.ConstraintLayout>
