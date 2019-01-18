@@ -34,7 +34,7 @@
         android:importantForAutofill="no"
         android:inputType="text"
         android:singleLine="true"
-        android:text="@string/Enter Stock Symbol"
+        android:text="Enter Stock Symbol"
         app:layout_constraintBottom_toTopOf="@+id/fetch_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

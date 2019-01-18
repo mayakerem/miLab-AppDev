@@ -5,7 +5,7 @@ The server will monitor the last price of the stock and send the client price up
 Start out with a live connection using Socket.IO. 
 Once that works, you can implement push with Firebase in case the Android app isn’t open
 */
-console.log("starting server ");
+console.log("V8 - starting server ");
 const express = require('express');
 const app = express();
 // Set up the server
@@ -18,8 +18,6 @@ const alpha = require('alphavantage')({ key: 'EFCR3UVVCE2EYRSI' });
 console.log("set up Alpha");
 const PORT = process.env.PORT || 8080;
 console.log(`choose port: ${PORT}`);
-//set up app to the right PORT
-console.log("after app = express");
 
 app.set('port',PORT);
 app.use(express.static(__dirname + '/public'));
@@ -30,34 +28,40 @@ io.on('connection', function(socket){
   console.log("Client connected");
 
   //when client emits a stock name, this listens and executes
-  socket.on('sendStockName', function(data) {
+  socket.on('sendStockName', function(stockName) {
     //listens every 5 seconds
     console.log("begining interval");
-    if (data == undefined) {
-      console.log("Data is undefined");
-      
-    }
-
-    setInterval(() => {
-      console.log("data: " + data);
-      socket.emit('sendStockName',{
-          Data: retrieveData(data)
-        }), 5000;
+    // if (stockName == undefined) {
+    //   console.log("stockName is undefined");
+    // }
+   // setInterval(() => {
+      alpha.data.batch([`${stockName}`]).then(data => {
+        console.log("price: " + `${data['Stock Quotes'][0]['2. price']}`);
+        socket.emit('sendStockData',{
+          symbol: `${stockName}`,
+          price: `${data['Stock Quotes'][0]['2. price']}`, 
+        });
+      }).catch(err => {
+        console.error("Error! -> " + err);
+     // }), 15000;
       }); 
   });
 });
 
-//function that takes the data
-function retrieveData(name){
-  console.log("inside retrieveData");
-  alpha.data.batch([`${name}`]).then(data => {
-    let value = `${data['Stock Quotes'][0]['2. price']}`;
-    return(`${name} -> ${data['Stock Quotes'][0]['2. price']}`);
-  //for every then we need to have a catch
-  }).catch(err => {
-    console.error("Error! -> " + err);
-});
-};
+// //function that takes the data
+// function retrieveData(name){
+//   console.log("inside retrieveData");
+//   alpha.data.batch([`${name}`]).then(data => {
+//     socket.broadcast.emit('sendStockData', {
+//       symbol: `${name}`,
+//       price: `${data['Stock Quotes'][0]['2. price']}`, 
+//     })
+//     //return(`${name} -> ${data['Stock Quotes'][0]['2. price']}`);
+//   //for every then we need to have a catch
+//   }).catch(err => {
+//     console.error("Error! -> " + err);
+// });
+// };
 
 //listining to the URL
 server.listen(PORT, () => {
