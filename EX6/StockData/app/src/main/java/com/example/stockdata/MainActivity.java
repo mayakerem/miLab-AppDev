@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                                 String symbol = "";
                                 String price = "";
                                 try {
-                                    symbol = json.getString("data");
+                                    symbol = json.getString("symbol");
                                     price = json.getString("price");
                                     Log.d("Debug", "The provided name: " + symbol);
                                     Log.d("Debug", "The Price: " + price);

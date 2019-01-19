@@ -5,7 +5,7 @@ The server will monitor the last price of the stock and send the client price up
 Start out with a live connection using Socket.IO. 
 Once that works, you can implement push with Firebase in case the Android app isn’t open
 */
-console.log("V8 - starting server ");
+console.log("V9 - starting server ");
 const express = require('express');
 const app = express();
 // Set up the server
