@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 mSocket.on("sendStockData", new Emitter.Listener() {
                     @Override
                     public void call(final Object... args) {
-                        runOnUiThread(new Runnable() {
+                        MainActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 //creating a JSON file
@@ -95,8 +96,11 @@ public class MainActivity extends AppCompatActivity {
                                     price = json.getString("price");
                                     Log.d("Debug", "The provided name: " + symbol);
                                     Log.d("Debug", "The Price: " + price);
+                                    Toast.makeText(MainActivity.this, "Today's price of " + symbol + " is " + price,
+                                            Toast.LENGTH_LONG).show();
                                 } catch (JSONException e) {
                                     Log.d("Debug","Didnt get the JSON");
+                                    return;
                                 }
 
                             }
