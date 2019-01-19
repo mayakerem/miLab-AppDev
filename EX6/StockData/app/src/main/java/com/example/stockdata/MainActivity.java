@@ -96,13 +96,17 @@ public class MainActivity extends AppCompatActivity {
                                     price = json.getString("price");
                                     Log.d("Debug", "The provided name: " + symbol);
                                     Log.d("Debug", "The Price: " + price);
-                                    Toast.makeText(MainActivity.this, "Today's price of " + symbol + " is " + price,
-                                            Toast.LENGTH_LONG).show();
                                 } catch (JSONException e) {
                                     Log.d("Debug","Didnt get the JSON");
                                     return;
                                 }
-
+                                if (price.equals("No data")){
+                                    Toast.makeText(MainActivity.this, "The symbol you have entered is invalid",
+                                            Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(MainActivity.this, "Today's price of " + symbol + " is " + price,
+                                            Toast.LENGTH_LONG).show();
+                                }
                             }
                         });
                     }

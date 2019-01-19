@@ -5,7 +5,7 @@ The server will monitor the last price of the stock and send the client price up
 Start out with a live connection using Socket.IO. 
 Once that works, you can implement push with Firebase in case the Android app isn’t open
 */
-console.log("V9 - starting server ");
+console.log("V10 - starting server ");
 const express = require('express');
 const app = express();
 // Set up the server
@@ -34,7 +34,7 @@ io.on('connection', function(socket){
     // if (stockName == undefined) {
     //   console.log("stockName is undefined");
     // }
-   // setInterval(() => {
+    // setInterval(() => {
       alpha.data.batch([`${stockName}`]).then(data => {
         console.log("price: " + `${data['Stock Quotes'][0]['2. price']}`);
         socket.emit('sendStockData',{
@@ -43,6 +43,9 @@ io.on('connection', function(socket){
         });
       }).catch(err => {
         console.error("Error! -> " + err);
+        socket.emit('sendStockData',{
+          symbol: `${stockName}`,
+          price: `No data`, });
      // }), 15000;
       }); 
   });
