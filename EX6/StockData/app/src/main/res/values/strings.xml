@@ -3,4 +3,9 @@
     <string name="button">Button</string>
     <string name="stockname">StockName</string>
     <string name="stop_receiving">Stop Receiving</string>
+    <string name="welcome_please_enter_a_valid_n_stock_name_to_receive_live_prices">Welcome! Please enter a valid   stock name to receive live prices</string>
+    <string name="fetch_price">Fetch Price</string>
+    <string name="symbol">Symbol</string>
+    <string name="todo">TODO</string>
+    <string name="appropriate_stock_symbol">Appropriate Stock Symbol</string>
 </resources>

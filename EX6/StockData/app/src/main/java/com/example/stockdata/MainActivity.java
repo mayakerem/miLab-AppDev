@@ -11,8 +11,6 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -30,9 +28,9 @@ public class MainActivity extends AppCompatActivity {
     {
         try {
             mSocket = IO.socket(host + port);
-            Log.d("Debug", "has connected");
+            Log.d("Debug", "Successful server set up");
         } catch (Exception e) {
-            Log.d("Debug", "not connected");
+            Log.d("Debug", "Failed to set up server");
         }
     }
 
@@ -49,23 +47,9 @@ public class MainActivity extends AppCompatActivity {
                 //Retrieve stock name
                 EditText editTextField = (EditText) findViewById(R.id.editText);
                 name = editTextField.getText().toString().trim();
-                Log.d("Debug", "going to connect to server now");
+                Log.d("Debug", "Collected data from user");
                 //Send stock name and open server communication
                 sendToSocket();
-            }
-        });
-
-        Button stop_btn = (Button) findViewById(R.id.StopReceiving);
-        //Click on stop button to stop receiving data
-        stop_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    //When clicked, close the socket
-                    mSocket.close();
-                } catch (Exception e) {
-                    Log.d("Debug", "error when closing socket");
-                }
             }
         });
     }
@@ -76,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
             //Connect to the server that was set up before
             mSocket.connect();
             if (mSocket != null){
-                Log.d("Debug", "Socket is connected");
-                //send the socket name to the event "sendStockName"
+                Log.d("Debug", "Socket successfully connected");
+                //Send the socket name to the event "sendStockName"
                 mSocket.emit("sendStockName", name );
                 //Now start listening to the event from the server with an Event Listener
                 mSocket.on("sendStockData", new Emitter.Listener() {
@@ -88,37 +72,37 @@ public class MainActivity extends AppCompatActivity {
                             public void run() {
                                 //creating a JSON file
                                 JSONObject json = (JSONObject) args[0];
-                                Log.d("Debug", "received JSON");
+                                Log.d("Debug", "Receiving JSON from server");
                                 String symbol = "";
                                 String price = "";
+                                String time = "";
                                 try {
                                     symbol = json.getString("symbol");
                                     price = json.getString("price");
-                                    Log.d("Debug", "The provided name: " + symbol);
-                                    Log.d("Debug", "The Price: " + price);
+                                    time = json.getString("time");
+                                    Log.d("Debug", "Name: " + symbol);
+                                    Log.d("Debug", "Price: " + price);
+                                    Log.d("Debug", "Time: " + time);
                                 } catch (JSONException e) {
-                                    Log.d("Debug","Didnt get the JSON");
-                                    return;
+                                    Log.d("Debug","Failed to acquire JSON information");
                                 }
                                 if (price.equals("No data")){
-                                    Toast.makeText(MainActivity.this, "The symbol you have entered is invalid",
-                                            Toast.LENGTH_LONG).show();
+                                    Toast.makeText(MainActivity.this, symbol +
+                                                    " is an invalid symbol", Toast.LENGTH_LONG).show();
                                 } else {
-                                    Toast.makeText(MainActivity.this, "Today's price of " + symbol + " is " + price,
-                                            Toast.LENGTH_LONG).show();
+                                    Toast.makeText(MainActivity.this, "Current price" +
+                                                    " of " + symbol + " is " + price + "\n \n Time: " +
+                                            time, Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
                     }
                 });
             } else {
-                Log.d("Debug", "mSocket didn't connect");
+                Log.d("Debug", "Socket connection was unsuccessful");
             }
         } catch (Exception e) {
-            Log.d("Debug", "Socket exception");
-//        }
-//        finally {
-//            Log.d("Debug", "Closing the socket! ");
+            Log.d("Debug", "Socket exception error");
         }
     }
 

@@ -5,68 +5,60 @@ The server will monitor the last price of the stock and send the client price up
 Start out with a live connection using Socket.IO. 
 Once that works, you can implement push with Firebase in case the Android app isn’t open
 */
-console.log("V10 - starting server ");
+console.log("Initiating Server");
 const express = require('express');
 const app = express();
 // Set up the server
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-console.log("defined requires ");
-// Used specific key that alpha gave me
+console.log("Sucessfully Defined Requires");
+// Used specific key provided by that alpha vantage
 const alpha = require('alphavantage')({ key: 'EFCR3UVVCE2EYRSI' });
-//decide the port
-console.log("set up Alpha");
+// Choosing port
+console.log("Alpha was set up");
 const PORT = process.env.PORT || 8080;
-console.log(`choose port: ${PORT}`);
+console.log(`Choosen port was ${PORT}`);
 
 app.set('port',PORT);
 app.use(express.static(__dirname + '/public'));
-console.log("before connected after app.set");
-
-// Reference from socket io chat app
+console.log("Completed app set up");
+let i = 0;
+// Begin setting up socket with event 'connection
 io.on('connection', function(socket){
-  console.log("Client connected");
+  console.log("Client has connected");
 
-  //when client emits a stock name, this listens and executes
+  //When client emits a stock name, server listens to 'sendStockName'
   socket.on('sendStockName', function(stockName) {
-    //listens every 5 seconds
-    console.log("begining interval");
-    // if (stockName == undefined) {
-    //   console.log("stockName is undefined");
-    // }
-    // setInterval(() => {
+    //Set up interval
+    setInterval(() => {
+      console.log("Begining interval");
+      //Get relevant data from alpha using Batch Stocks
       alpha.data.batch([`${stockName}`]).then(data => {
-        console.log("price: " + `${data['Stock Quotes'][0]['2. price']}`);
+        console.log("Time: " + `${data['Stock Quotes'][0]['4. timestamp']}`);
+        console.log("Price: " + `${data['Stock Quotes'][0]['2. price']}`);
+        //Sending JSON with relevant information to the client
+        //Client will listen to 'sendStockData'
         socket.emit('sendStockData',{
           symbol: `${stockName}`,
-          price: `${data['Stock Quotes'][0]['2. price']}`, 
+          price: `${data['Stock Quotes'][0]['2. price']}`,
+          time: `${data['Stock Quotes'][0]['4. timestamp']}`
         });
       }).catch(err => {
-        console.error("Error! -> " + err);
+        //The provided name is invalid or there has been some error
+        console.error("Encountered Error: " + err);
+        //Emmiting error to event 'sendStockData'
         socket.emit('sendStockData',{
           symbol: `${stockName}`,
-          price: `No data`, });
-     // }), 15000;
-      }); 
+          price: "Invalid Name",
+          time: "N/A"
+        });
+
+      //Send the JSON every X miliseconds
+      })}, 5000); 
   });
 });
 
-// //function that takes the data
-// function retrieveData(name){
-//   console.log("inside retrieveData");
-//   alpha.data.batch([`${name}`]).then(data => {
-//     socket.broadcast.emit('sendStockData', {
-//       symbol: `${name}`,
-//       price: `${data['Stock Quotes'][0]['2. price']}`, 
-//     })
-//     //return(`${name} -> ${data['Stock Quotes'][0]['2. price']}`);
-//   //for every then we need to have a catch
-//   }).catch(err => {
-//     console.error("Error! -> " + err);
-// });
-// };
-
-//listining to the URL
+//Listining to the URL
 server.listen(PORT, () => {
-  console.log(`listening at port ${PORT}`);
+  console.log(`Listening at port ${PORT}`);
 });

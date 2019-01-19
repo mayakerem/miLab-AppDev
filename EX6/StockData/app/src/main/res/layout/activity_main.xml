@@ -10,11 +10,11 @@
         android:id="@+id/fetch_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
-        android:layout_marginTop="128dp"
-        android:layout_marginEnd="162dp"
-        android:layout_marginBottom="254dp"
-        android:text="@string/button"
+        android:layout_marginStart="151dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="151dp"
+        android:layout_marginBottom="238dp"
+        android:text="@string/fetch_price"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,36 +25,61 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="98dp"
-        android:layout_marginTop="256dp"
+        android:layout_marginTop="324dp"
         android:layout_marginEnd="100dp"
-        android:layout_marginBottom="128dp"
         android:contentDescription="@string/stockname"
         android:ems="10"
-        android:hint="Appropriate Stock Symbol"
+        android:hint="@string/appropriate_stock_symbol"
         android:importantForAutofill="no"
         android:inputType="text"
         android:singleLine="true"
-        android:text="Enter Stock Symbol"
-        app:layout_constraintBottom_toTopOf="@+id/fetch_btn"
+        android:text="@string/symbol"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="MSFT" />
 
-    <Button
-        android:id="@+id/StopReceiving"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="139dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="139dp"
-        android:layout_marginBottom="8dp"
-        android:contentDescription="@string/stop_receiving"
-        android:text="Stop Receiving"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="358dp"
+        android:layout_height="164dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="49dp"
+        android:layout_marginEnd="27dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fetch_btn"
-        tools:text="Stop Receiving" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo"
+        android:contentDescription="@string/todo" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="383dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="14dp"
+        android:text="@string/welcome_please_enter_a_valid_n_stock_name_to_receive_live_prices"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <!--<Button-->
+        <!--android:id="@+id/StopReceiving"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="139dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:layout_marginEnd="139dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:contentDescription="@string/stop_receiving"-->
+        <!--android:text="Stop Receiving"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/fetch_btn"-->
+        <!--tools:text="Stop Receiving" />-->
 </android.support.constraint.ConstraintLayout>
